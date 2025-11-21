@@ -964,19 +964,21 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                 class="bg-white rounded shadow-md border border-[#E9E9E9] p-4 md:p-6 lg:p-8"
               >
                 <!-- Available Label -->
-                <h3 class="text-base font-medium text-[#686868] mb-6">
+                <h3 class="text-base font-medium text-[#686868] mb-3">
                   Available
                 </h3>
 
                 <!-- Features Grid -->
                 <div
-                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-4 md:gap-6"
+                  class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 gap-4 md:gap-6 mb-6"
                 >
                   <!-- Schedule - Active -->
-                  <button
-                    (click)="toggleFeature('schedule')"
+                  <div
+                    draggable="true"
+                    (dragstart)="onDragStartFeature($event, 'schedule')"
+                    (dragend)="onDragEndFeature($event)"
                     [class.feature-active]="isFeatureActive('schedule')"
-                    class="feature-card group flex flex-col items-center gap-2 p-4 rounded border border-[#049AD0] shadow-sm transition-all hover:shadow-md"
+                    class="feature-card group flex flex-col items-center gap-2 p-4 rounded border border-[#049AD0] shadow-sm transition-all hover:shadow-md cursor-grab active:cursor-grabbing"
                   >
                     <div class="relative w-full">
                       <svg
@@ -1045,13 +1047,15 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                     >
                       Schedule
                     </span>
-                  </button>
+                  </div>
 
                   <!-- Other Features (Inactive) -->
-                  <button
+                  <div
                     *ngFor="let feature of inactiveFeatures"
-                    (click)="toggleFeature(feature.id)"
-                    class="feature-card flex flex-col items-center gap-2 p-4 rounded border border-[#CED4DA] shadow-sm transition-all hover:shadow-md hover:border-[#049AD0] bg-white"
+                    draggable="true"
+                    (dragstart)="onDragStartFeature($event, feature.id)"
+                    (dragend)="onDragEndFeature($event)"
+                    class="feature-card flex flex-col items-center gap-2 p-4 rounded border border-[#CED4DA] shadow-sm transition-all hover:shadow-md hover:border-[#049AD0] bg-white cursor-grab active:cursor-grabbing"
                   >
                     <div class="relative w-full">
                       <div
@@ -1097,7 +1101,217 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                     >
                       {{ feature.label }}
                     </span>
-                  </button>
+                  </div>
+                </div>
+
+                <!-- Selected Section -->
+                <div class="mb-8">
+                  <h3 class="text-base font-medium text-[#686868] mb-3">
+                    Selected
+                  </h3>
+
+                  <!-- Selected Features Container -->
+                  <div
+                    class="relative w-full rounded border-2 border-dashed transition-colors"
+                    [ngClass]="{
+                      'border-[#CED4DA] bg-white': !isDragOverSelected,
+                      'border-[#049AD0] bg-[#E8F4F8]': isDragOverSelected,
+                    }"
+                    style="min-height: 309px;"
+                    (dragover)="onDragOverSelected($event)"
+                    (drop)="onDropSelected($event)"
+                    (dragleave)="onDragLeaveSelected($event)"
+                  >
+                    <!-- Selected Feature Cards -->
+                    <div
+                      class="absolute top-8 left-8 flex flex-wrap gap-6"
+                      *ngIf="activeFeatures.length > 0"
+                      (dragover)="onDragOver($event)"
+                      (drop)="onDrop($event)"
+                      (dragleave)="onDragLeave($event)"
+                    >
+                      <div
+                        *ngFor="let featureId of activeFeatures"
+                        draggable="true"
+                        (dragstart)="onDragStart($event, featureId)"
+                        (dragend)="onDragEnd($event)"
+                        class="flex flex-col items-center gap-2 p-4 w-[120px] h-[120px] rounded border border-[#049AD0] shadow-[0_4px_15px_rgba(30,30,45,0.05)] bg-white transition-all hover:shadow-md cursor-move"
+                      >
+                        <div
+                          class="relative w-full flex-1 flex items-center justify-center"
+                        >
+                          <svg
+                            class="w-8 h-8"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            *ngIf="featureId === 'schedule'"
+                          >
+                            <path
+                              d="M28.25 2.5H26.75V0H24.25V2.5H7.75V0H5.25V2.5H3.75C1.68225 2.5 0 4.18225 0 6.25V28.25C0 30.3177 1.68225 32 3.75 32H28.25C30.3177 32 32 30.3177 32 28.25V6.25C32 4.18225 30.3177 2.5 28.25 2.5ZM29.5 28.25C29.5 28.9393 28.9393 29.5 28.25 29.5H3.75C3.06075 29.5 2.5 28.9393 2.5 28.25V11.75H29.5V28.25ZM29.5 9.25H2.5V6.25C2.5 5.56075 3.06075 5 3.75 5H5.25V7.5H7.75V5H24.25V7.5H26.75V5H28.25C28.9393 5 29.5 5.56075 29.5 6.25V9.25Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M7.25 14.375H4.75V16.875H7.25V14.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M12.25 14.375H9.75V16.875H12.25V14.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M17.25 14.375H14.75V16.875H17.25V14.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M22.25 14.375H19.75V16.875H22.25V14.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M27.25 14.375H24.75V16.875H27.25V14.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M7.25 19.375H4.75V21.875H7.25V19.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M12.25 19.375H9.75V21.875H12.25V19.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M17.25 19.375H14.75V21.875H17.25V19.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M22.25 19.375H19.75V21.875H22.25V19.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M7.25 24.375H4.75V26.875H7.25V24.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M12.25 24.375H9.75V26.875H12.25V24.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M17.25 24.375H14.75V26.875H17.25V24.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M22.25 24.375H19.75V26.875H22.25V24.375Z"
+                              fill="#049AD0"
+                            />
+                            <path
+                              d="M27.25 19.375H24.75V21.875H27.25V19.375Z"
+                              fill="#049AD0"
+                            />
+                          </svg>
+                          <button
+                            class="absolute -top-2 -right-2 p-1"
+                            (click)="toggleFeature(featureId)"
+                            title="Remove feature"
+                          >
+                            <svg
+                              class="w-5 h-5"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                                stroke="#049AD0"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z"
+                                stroke="#049AD0"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z"
+                                stroke="#049AD0"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        <span
+                          class="text-base font-medium text-[#049AD0] text-center leading-tight"
+                        >
+                          {{ getFeatureLabel(featureId) }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Drag to Add Message -->
+                    <div
+                      class="absolute left-1/2 bottom-[10%] -translate-x-1/2 translate-y-1/2 flex items-center gap-2"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 9L2 12L5 15"
+                          stroke="#686868"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M9 5L12 2L15 5"
+                          stroke="#686868"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M15 19L12 22L9 19"
+                          stroke="#686868"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M19 9L22 12L19 15"
+                          stroke="#686868"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M2 12H22"
+                          stroke="#686868"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12 2V22"
+                          stroke="#686868"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span
+                        class="text-[#878A99] text-lg font-semibold whitespace-nowrap"
+                      >
+                        Drag to add & sort features
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Footer with Back and Next buttons -->
@@ -1224,6 +1438,8 @@ export class EventSetupComponent implements OnInit {
   bannerPreview: string | null = null;
 
   activeFeatures: string[] = ["schedule"];
+  draggedFeatureId: string | null = null;
+  isDragOverSelected = false;
 
   inactiveFeatures = [
     {
@@ -1497,5 +1713,82 @@ export class EventSetupComponent implements OnInit {
 
   isFeatureActive(featureId: string): boolean {
     return this.activeFeatures.includes(featureId);
+  }
+
+  getFeatureLabel(featureId: string): string {
+    if (featureId === "schedule") {
+      return "Schedule";
+    }
+    const feature = this.inactiveFeatures.find((f) => f.id === featureId);
+    return feature ? feature.label : "";
+  }
+
+  onDragStartFeature(event: DragEvent, featureId: string) {
+    this.draggedFeatureId = featureId;
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("featureId", featureId);
+    }
+  }
+
+  onDragEndFeature(event: DragEvent) {
+    this.draggedFeatureId = null;
+  }
+
+  onDragOverSelected(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = "move";
+    }
+    this.isDragOverSelected = true;
+  }
+
+  onDragLeaveSelected(event: DragEvent) {
+    const target = event.currentTarget as HTMLElement;
+    if (
+      event.relatedTarget === null ||
+      !target.contains(event.relatedTarget as Node)
+    ) {
+      this.isDragOverSelected = false;
+    }
+  }
+
+  onDropSelected(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOverSelected = false;
+
+    if (event.dataTransfer) {
+      const featureId = event.dataTransfer.getData("featureId");
+      if (featureId && !this.activeFeatures.includes(featureId)) {
+        this.activeFeatures.push(featureId);
+      }
+    }
+  }
+
+  onDragStart(event: DragEvent, featureId: string) {
+    this.draggedFeatureId = featureId;
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("featureId", featureId);
+    }
+  }
+
+  onDragEnd(event: DragEvent) {
+    this.draggedFeatureId = null;
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = "move";
+    }
+  }
+
+  onDragLeave(event: DragEvent) {}
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 }
