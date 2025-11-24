@@ -1628,6 +1628,8 @@ export class EventSetupComponent implements OnInit {
   logoPreview: string | null = null;
   bannerPreview: string | null = null;
 
+  isScheduleModalOpen = false;
+
   activeFeatures: string[] = [
     "schedule",
     "exhibitor",
