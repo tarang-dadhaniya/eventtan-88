@@ -551,60 +551,62 @@ import { FormsModule } from "@angular/forms";
             </p>
           </div>
 
-          <!-- Modal Footer -->
-          <div class="flex justify-end gap-3 pt-6">
-            <button
-              type="button"
-              (click)="onCancel()"
-              class="px-6 py-2 bg-[#DEE1EB] hover:bg-[#CED1DB] rounded text-[#4C546C] font-semibold transition-colors flex items-center gap-2"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clip-path="url(#clip2)">
-                  <path
-                    d="M0.620965 12C0.462896 12 0.304826 11.9399 0.184729 11.8189C-0.0563682 11.5778 -0.0563682 11.1869 0.184729 10.9458L10.9497 0.180823C11.1908 -0.0602744 11.5817 -0.0602744 11.8228 0.180823C12.0639 0.421921 12.0639 0.8128 11.8228 1.05405L1.05795 11.8189C0.936954 11.9392 0.778884 12 0.620965 12Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M11.3867 12C11.2287 12 11.0707 11.9399 10.9505 11.8189L0.184729 1.05405C-0.0563682 0.8128 -0.0563682 0.421921 0.184729 0.180823C0.425827 -0.0602744 0.816707 -0.0602744 1.05795 0.180823L11.8228 10.9458C12.0639 11.1869 12.0639 11.5778 11.8228 11.8189C11.7018 11.9392 11.5439 12 11.3867 12Z"
-                    fill="currentColor"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip2">
-                    <rect width="12" height="12" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              Close
-            </button>
-            <button
-              type="submit"
-              class="px-6 py-2 bg-[#009FD8] hover:bg-[#0385b5] text-white rounded font-semibold transition-colors flex items-center gap-2"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13.7432 3.76582C14.0231 4.01076 14.0485 4.43749 13.7995 4.71384L6.79025 12.4937C6.53996 12.7715 6.11021 12.7892 5.83796 12.5329L1.78194 8.7145C1.529 8.47637 1.50478 8.07957 1.7218 7.8083C1.96127 7.50897 2.40721 7.46777 2.6922 7.7241L5.83913 10.5547C6.11261 10.8007 6.53366 10.7787 6.78005 10.5056L12.8091 3.82096C13.053 3.55046 13.4691 3.52594 13.7432 3.76582Z"
-                  fill="white"
-                />
-              </svg>
-              Save
-            </button>
-          </div>
         </form>
+
+        <!-- Modal Footer - Fixed -->
+        <div class="flex-shrink-0 px-[25px] py-6 border-t border-[#CED4DA] flex justify-end gap-3">
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="px-6 py-2 bg-[#DEE1EB] hover:bg-[#CED1DB] rounded text-[#4C546C] font-semibold transition-colors flex items-center gap-2"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip2)">
+                <path
+                  d="M0.620965 12C0.462896 12 0.304826 11.9399 0.184729 11.8189C-0.0563682 11.5778 -0.0563682 11.1869 0.184729 10.9458L10.9497 0.180823C11.1908 -0.0602744 11.5817 -0.0602744 11.8228 0.180823C12.0639 0.421921 12.0639 0.8128 11.8228 1.05405L1.05795 11.8189C0.936954 11.9392 0.778884 12 0.620965 12Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M11.3867 12C11.2287 12 11.0707 11.9399 10.9505 11.8189L0.184729 1.05405C-0.0563682 0.8128 -0.0563682 0.421921 0.184729 0.180823C0.425827 -0.0602744 0.816707 -0.0602744 1.05795 0.180823L11.8228 10.9458C12.0639 11.1869 12.0639 11.5778 11.8228 11.8189C11.7018 11.9392 11.5439 12 11.3867 12Z"
+                  fill="currentColor"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip2">
+                  <rect width="12" height="12" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Close
+          </button>
+          <button
+            type="submit"
+            (click)="onSubmit()"
+            class="px-6 py-2 bg-[#009FD8] hover:bg-[#0385b5] text-white rounded font-semibold transition-colors flex items-center gap-2"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13.7432 3.76582C14.0231 4.01076 14.0485 4.43749 13.7995 4.71384L6.79025 12.4937C6.53996 12.7715 6.11021 12.7892 5.83796 12.5329L1.78194 8.7145C1.529 8.47637 1.50478 8.07957 1.7218 7.8083C1.96127 7.50897 2.40721 7.46777 2.6922 7.7241L5.83913 10.5547C6.11261 10.8007 6.53366 10.7787 6.78005 10.5056L12.8091 3.82096C13.053 3.55046 13.4691 3.52594 13.7432 3.76582Z"
+                fill="white"
+              />
+            </svg>
+            Save
+          </button>
+        </div>
       </div>
     </div>
   `,
