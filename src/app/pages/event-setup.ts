@@ -11,6 +11,9 @@ import {
 import { AddScheduleModalComponent } from "../components/add-schedule-modal";
 import { AddExhibitorModalComponent } from "../components/add-exhibitor-modal";
 import { ConfirmDeleteModalComponent } from "../components/confirm-delete-modal";
+import { AboutDetailModalComponent } from "../components/about-detail-modal";
+import { AddExhibitorModalComponent } from "../components/add-exhibitor-modal";
+import { ConfirmDeleteModalComponent } from "../components/confirm-delete-modal";
 import { ScheduleService, Schedule } from "../services/schedule.service";
 import { ExhibitorService, Exhibitor } from "../services/exhibitor.service";
 
