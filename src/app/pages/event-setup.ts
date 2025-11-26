@@ -2496,6 +2496,11 @@ export class EventSetupComponent implements OnInit {
       this.currentTab = "features";
     } else if (this.currentTab === "features") {
       this.currentTab = "content";
+      this.selectedFeatureIndex = 0;
+    } else if (this.currentTab === "content") {
+      if (this.selectedFeatureIndex < this.activeFeatures.length - 1) {
+        this.selectedFeatureIndex++;
+      }
     } else {
       console.log("Form submitted:", this.formData);
     }
