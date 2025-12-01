@@ -176,9 +176,13 @@ import { FormsModule } from "@angular/forms";
                     [(ngModel)]="formData.type"
                     class="appearance-none w-5 h-5 border border-[#CED4DA] rounded-full bg-[#FEFEFE] cursor-pointer checked:border-[#CED4DA] peer"
                   />
-                  <div class="absolute w-2.5 h-2.5 rounded-full bg-[#049AD0] opacity-0 peer-checked:opacity-100 pointer-events-none"></div>
+                  <div
+                    class="absolute w-2.5 h-2.5 rounded-full bg-[#049AD0] opacity-0 peer-checked:opacity-100 pointer-events-none"
+                  ></div>
                 </div>
-                <span class="text-base font-medium text-[#212529]">Standard</span>
+                <span class="text-base font-medium text-[#212529]"
+                  >Standard</span
+                >
               </label>
               <label class="flex items-center gap-3 cursor-pointer group">
                 <div class="relative flex items-center justify-center">
@@ -189,15 +193,21 @@ import { FormsModule } from "@angular/forms";
                     [(ngModel)]="formData.type"
                     class="appearance-none w-5 h-5 border border-[#CED4DA] rounded-full bg-[#FEFEFE] cursor-pointer checked:border-[#CED4DA] peer"
                   />
-                  <div class="absolute w-2.5 h-2.5 rounded-full bg-[#049AD0] opacity-0 peer-checked:opacity-100 pointer-events-none"></div>
+                  <div
+                    class="absolute w-2.5 h-2.5 rounded-full bg-[#049AD0] opacity-0 peer-checked:opacity-100 pointer-events-none"
+                  ></div>
                 </div>
-                <span class="text-base font-medium text-[#212529]">External</span>
+                <span class="text-base font-medium text-[#212529]"
+                  >External</span
+                >
               </label>
             </div>
 
             <!-- URL Field (shown only for External type) -->
             <div *ngIf="formData.type === 'External'">
-              <label class="block text-base font-medium text-[#212529] mb-2">URL</label>
+              <label class="block text-base font-medium text-[#212529] mb-2"
+                >URL</label
+              >
               <input
                 type="url"
                 [(ngModel)]="formData.url"
@@ -208,7 +218,9 @@ import { FormsModule } from "@angular/forms";
 
             <!-- Featured Images Field (shown only for External type) -->
             <div *ngIf="formData.type === 'External'">
-              <label class="block text-base font-medium text-[#212529] mb-2">Featured Images</label>
+              <label class="block text-base font-medium text-[#212529] mb-2"
+                >Featured Images</label
+              >
               <div
                 class="border border-dashed border-[#B9BBBC] rounded h-[120px] flex flex-col items-center justify-center cursor-pointer hover:border-[#009FD8] transition-colors"
                 (click)="featuredImagesInput.click()"
@@ -252,7 +264,9 @@ import { FormsModule } from "@angular/forms";
 
             <!-- Description Field (shown for all types) -->
             <div *ngIf="formData.type === 'Standard'">
-              <label class="block text-base font-medium text-[#212529] mb-2">Description</label>
+              <label class="block text-base font-medium text-[#212529] mb-2"
+                >Description</label
+              >
               <textarea
                 [(ngModel)]="formData.description"
                 rows="6"
