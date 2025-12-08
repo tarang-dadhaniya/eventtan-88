@@ -2542,6 +2542,240 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                     </div>
                   </div>
 
+                  <!-- Sponsors Content -->
+                  <div
+                    *ngIf="
+                      activeFeatures.length > 0 &&
+                      activeFeatures[selectedFeatureIndex] === 'sponsors'
+                    "
+                  >
+                    <div class="flex flex-col gap-0">
+                      <!-- Header Container with Title and Controls -->
+                      <div
+                        class="bg-[#F5F5F5] border border-[#CED4DA] rounded-t-md"
+                      >
+                        <div
+                          class="flex items-center justify-between px-6 py-4 gap-6"
+                        >
+                          <h2
+                            class="text-xl font-medium text-[#686868] whitespace-nowrap"
+                          >
+                            Sponsors
+                          </h2>
+
+                          <div
+                            class="flex-1 flex items-center justify-end gap-3"
+                          >
+                            <!-- Search Bar -->
+                            <div class="relative">
+                              <input
+                                type="text"
+                                placeholder="Search"
+                                class="h-11 pl-5 pr-11 border border-[#DADADA] rounded text-base font-medium placeholder-[#878A99] focus:outline-none focus:border-[#049AD0] bg-[#FBFBFB] transition-colors"
+                                style="width: 220px;"
+                              />
+                              <svg
+                                class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B1B1B1] pointer-events-none"
+                                fill="none"
+                                viewBox="0 0 18 18"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9 0C13.9705 0 17.9998 4.02959 18 9C18 13.9706 13.9706 18 9 18C4.02959 17.9998 0 13.9705 0 9C0.000175931 4.0297 4.0297 0.000175935 9 0ZM9 1.5C4.85812 1.50018 1.50018 4.85812 1.5 9C1.5 13.142 4.85801 16.4998 9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.4998 4.85801 13.142 1.5 9 1.5Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+
+                            <!-- Add Sponsors Button -->
+                            <button
+                              (click)="openSponsorsModal()"
+                              class="flex items-center gap-2 px-4 h-11 border border-[#049AD0] rounded font-semibold text-sm text-white bg-[#009FD8] hover:bg-[#0385b5] transition-colors whitespace-nowrap"
+                            >
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M12 5V19"
+                                  stroke="white"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M5 12H19"
+                                  stroke="white"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                              <span>Add Sponsors</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Table -->
+                      <div
+                        class="border border-[#CED4DA] border-t-0 rounded-b-md overflow-hidden"
+                      >
+                        <!-- Table Header Row -->
+                        <div
+                          class="bg-white border-b border-[#CED4DA] grid grid-cols-[70px_1fr_150px_150px_150px_120px_100px] px-6 py-4 gap-4"
+                        >
+                          <div
+                            class="text-[#181C32] font-bold text-base text-center"
+                          >
+                            Sr. No
+                          </div>
+                          <div class="text-[#181C32] font-bold text-base">
+                            Company
+                          </div>
+                          <div class="text-[#181C32] font-bold text-base">
+                            Email
+                          </div>
+                          <div
+                            class="text-[#181C32] font-bold text-base text-center"
+                          >
+                            Phone
+                          </div>
+                          <div class="text-[#181C32] font-bold text-base">
+                            Track
+                          </div>
+                          <div
+                            class="text-[#181C32] font-bold text-base text-center"
+                          >
+                            Sequence
+                          </div>
+                          <div
+                            class="text-[#181C32] font-bold text-base text-center"
+                          >
+                            Action
+                          </div>
+                        </div>
+
+                        <!-- Table Body -->
+                        <div
+                          *ngIf="sponsors.length === 0"
+                          class="bg-white min-h-80 flex items-center justify-center"
+                        >
+                          <div class="text-center py-12">
+                            <p class="text-[#878A99] text-lg">
+                              No sponsors available. Click "Add Sponsors" to get
+                              started.
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Sponsor Rows -->
+                        <div
+                          *ngFor="let sponsor of sponsors; let i = index"
+                          class="bg-white border-b border-[#E9E9E9] last:border-b-0 grid grid-cols-[70px_1fr_150px_150px_150px_120px_100px] px-6 py-4 gap-4 items-center hover:bg-gray-50 transition-colors"
+                        >
+                          <div
+                            class="text-[#353846] font-semibold text-base text-center"
+                          >
+                            {{ i + 1 }}
+                          </div>
+                          <div class="flex items-center gap-3">
+                            <div
+                              *ngIf="sponsor.companyLogo"
+                              class="w-10 h-10 rounded flex-shrink-0 overflow-hidden bg-[#F5F5F5]"
+                            >
+                              <img
+                                [src]="sponsor.companyLogo"
+                                alt="{{ sponsor.companyName }}"
+                                class="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div
+                              *ngIf="!sponsor.companyLogo"
+                              class="w-10 h-10 rounded flex-shrink-0 bg-[#F5F5F5]"
+                            ></div>
+                            <span class="text-[#353846] font-semibold text-base">
+                              {{ sponsor.companyName }}
+                            </span>
+                          </div>
+                          <div class="text-[#353846] font-semibold text-base">
+                            {{ sponsor.email }}
+                          </div>
+                          <div
+                            class="text-[#353846] font-semibold text-base text-center"
+                          >
+                            {{ sponsor.phone }}
+                          </div>
+                          <div class="text-[#353846] font-semibold text-base">
+                            {{ sponsor.track }}
+                          </div>
+                          <div
+                            class="text-[#353846] font-semibold text-base text-center"
+                          >
+                            {{ sponsor.sequence }}
+                          </div>
+                          <div class="flex gap-3 justify-center">
+                            <button
+                              (click)="editSponsor(sponsor)"
+                              class="w-10 h-10 rounded-full bg-[#009FD8] flex items-center justify-center hover:bg-[#0385b5] transition-colors"
+                              title="Edit"
+                            >
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M19.1484 1.64032L19.1255 1.61947C18.6882 1.21999 18.1213 1 17.5293 1C16.8656 1 16.2283 1.28101 15.7809 1.77084L7.3204 11.0332C7.24331 11.1177 7.18477 11.2173 7.14874 11.3257L6.15387 14.308C6.03877 14.6528 6.09659 15.0342 6.30823 15.328C6.52161 15.6242 6.86542 15.801 7.22789 15.801C7.38472 15.801 7.53804 15.7688 7.68334 15.7052L10.5637 14.4451C10.6684 14.3993 10.7624 14.332 10.8394 14.2476L19.2999 4.98524C20.1803 4.02143 20.1124 2.521 19.1484 1.64032ZM8.05986 13.7571L8.64367 12.0071L8.6929 11.9532L9.79926 12.9637L9.75004 13.0177L8.05986 13.7571ZM18.0936 3.88334L10.9012 11.7575L9.79482 10.7469L16.9872 2.87274C17.1279 2.71867 17.3204 2.63378 17.5293 2.63378C17.7126 2.63378 17.8881 2.70197 18.0239 2.82604L18.0468 2.84689C18.3454 3.11968 18.3664 3.58463 18.0936 3.88334Z"
+                                  fill="white"
+                                />
+                                <path
+                                  d="M17.5065 8.53653C17.0553 8.53653 16.6896 8.90229 16.6896 9.3534V16.2887C16.6896 17.4343 15.7576 18.3662 14.6121 18.3662H4.71125C3.56569 18.3662 2.63378 17.4343 2.63378 16.2887V6.46844C2.63378 5.32288 3.56584 4.39097 4.71125 4.39097H11.8775C12.3287 4.39097 12.6944 4.02506 12.6944 3.57397C12.6944 3.12288 12.3287 2.75708 11.8775 2.75708H4.71125C2.66483 2.75708 1 4.42198 1 6.46844V16.2887C1 18.3351 2.66483 20 4.71125 20H14.612C16.6584 20 18.3233 18.3351 18.3233 16.2887V9.3534C18.3234 8.90229 17.9576 8.53653 17.5065 8.53653Z"
+                                  fill="white"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              (click)="deleteSponsor(sponsor.id)"
+                              class="w-10 h-10 rounded-full bg-[#BF0505] flex items-center justify-center hover:bg-[#a00404] transition-colors"
+                              title="Delete"
+                            >
+                              <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M15.834 5.83325C15.613 5.83325 15.401 5.92105 15.2447 6.07733C15.0884 6.23361 15.0007 6.44557 15.0007 6.66659V15.9924C14.9767 16.4138 14.7873 16.8087 14.4736 17.0911C14.1598 17.3734 13.7472 17.5204 13.3257 17.4999H6.67565C6.25406 17.5204 5.84147 17.3734 5.52774 17.0911C5.21401 16.8087 5.02456 16.4138 5.00065 15.9924V6.66659C5.00065 6.44557 4.91285 6.23361 4.75657 6.07733C4.60029 5.92105 4.38833 5.83325 4.16732 5.83325C3.9463 5.83325 3.73434 5.92105 3.57806 6.07733C3.42178 6.23361 3.33398 6.44557 3.33398 6.66659V15.9924C3.35777 16.8559 3.7228 17.6748 4.34913 18.2698C4.97547 18.8647 5.81204 19.1872 6.67565 19.1666H13.3257C14.1893 19.1872 15.0258 18.8647 15.6522 18.2698C16.2785 17.6748 16.6435 16.8559 16.6673 15.9924V6.66659C16.6673 6.44557 16.5795 6.23361 16.4232 6.07733C16.267 5.92105 16.055 5.83325 15.834 5.83325Z"
+                                  fill="white"
+                                />
+                                <path
+                                  d="M16.6667 3.33325H13.3333V1.66659C13.3333 1.44557 13.2455 1.23361 13.0893 1.07733C12.933 0.921049 12.721 0.833252 12.5 0.833252H7.5C7.27899 0.833252 7.06702 0.921049 6.91074 1.07733C6.75446 1.23361 6.66667 1.44557 6.66667 1.66659V3.33325H3.33333C3.11232 3.33325 2.90036 3.42105 2.74408 3.57733C2.5878 3.73361 2.5 3.94557 2.5 4.16659C2.5 4.3876 2.5878 4.59956 2.74408 4.75584C2.90036 4.91212 3.11232 4.99992 3.33333 4.99992H16.6667C16.8877 4.99992 17.0996 4.91212 17.2559 4.75584C17.4122 4.59956 17.5 4.3876 17.5 4.16659C17.5 3.94557 17.4122 3.73361 17.2559 3.57733C17.0996 3.42105 16.8877 3.33325 16.6667 3.33325ZM8.33333 3.33325V2.49992H11.6667V3.33325H8.33333Z"
+                                  fill="white"
+                                />
+                                <path
+                                  d="M9.16667 14.1667V8.33333C9.16667 8.11232 9.07887 7.90036 8.92259 7.74408C8.76631 7.5878 8.55435 7.5 8.33333 7.5C8.11232 7.5 7.90036 7.5878 7.74408 7.74408C7.5878 7.90036 7.5 8.11232 7.5 8.33333V14.1667C7.5 14.3877 7.5878 14.5996 7.74408 14.7559C7.90036 14.9122 8.11232 15 8.33333 15C8.55435 15 8.76631 14.9122 8.92259 14.7559C9.07887 14.5996 9.16667 14.3877 9.16667 14.1667Z"
+                                  fill="white"
+                                />
+                                <path
+                                  d="M12.5007 14.1667V8.33333C12.5007 8.11232 12.4129 7.90036 12.2566 7.74408C12.1003 7.5878 11.8883 7.5 11.6673 7.5C11.4463 7.5 11.2343 7.5878 11.0781 7.74408C10.9218 7.90036 10.834 8.11232 10.834 8.33333V14.1667C10.834 14.3877 10.9218 14.5996 11.0781 14.7559C11.2343 14.9122 11.4463 15 11.6673 15C11.8883 15 12.1003 14.9122 12.2566 14.7559C12.4129 14.5996 12.5007 14.3877 12.5007 14.1667Z"
+                                  fill="white"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- Other Features Placeholder -->
                   <div
                     *ngIf="
@@ -2550,7 +2784,8 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                       activeFeatures[selectedFeatureIndex] !== 'exhibitor' &&
                       activeFeatures[selectedFeatureIndex] !== 'about' &&
                       activeFeatures[selectedFeatureIndex] !== 'information' &&
-                      activeFeatures[selectedFeatureIndex] !== 'speakers'
+                      activeFeatures[selectedFeatureIndex] !== 'speakers' &&
+                      activeFeatures[selectedFeatureIndex] !== 'sponsors'
                     "
                     class="flex flex-col items-center justify-center py-16 text-center"
                   >
