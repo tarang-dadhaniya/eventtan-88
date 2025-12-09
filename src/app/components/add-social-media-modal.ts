@@ -20,7 +20,7 @@ import { FormsModule } from "@angular/forms";
         <div class="flex-shrink-0 px-[30px] py-[30px]">
           <div class="flex items-center justify-between">
             <h2 class="text-[22px] font-medium text-[#3F4254]">
-              {{ editMode ? 'Edit Social Media' : 'Add Social Media' }}
+              {{ editMode ? "Edit Social Media" : "Add Social Media" }}
             </h2>
             <button
               type="button"
@@ -190,7 +190,9 @@ import { FormsModule } from "@angular/forms";
                 formData.socialMedia.blogRss || formData.socialMedia.facebook
               "
             >
-              <label class="block text-base font-medium text-[#212529] mb-[31px]">
+              <label
+                class="block text-base font-medium text-[#212529] mb-[31px]"
+              >
                 URL
               </label>
 
@@ -347,22 +349,22 @@ export class AddSocialMediaModalComponent {
   @Input() set socialMediaData(data: any) {
     if (data) {
       if (data.type) {
-        const typeMap: { [key: string]: 'blogRss' | 'facebook' | 'twitter' } = {
-          'Blog/Rss': 'blogRss',
-          'Facebook': 'facebook',
-          'Twitter': 'twitter',
+        const typeMap: { [key: string]: "blogRss" | "facebook" | "twitter" } = {
+          "Blog/Rss": "blogRss",
+          Facebook: "facebook",
+          Twitter: "twitter",
         };
-        const socialMediaType = typeMap[data.type] || 'facebook';
+        const socialMediaType = typeMap[data.type] || "facebook";
         this.formData = {
           socialMedia: {
-            blogRss: socialMediaType === 'blogRss',
-            facebook: socialMediaType === 'facebook',
-            twitter: socialMediaType === 'twitter',
+            blogRss: socialMediaType === "blogRss",
+            facebook: socialMediaType === "facebook",
+            twitter: socialMediaType === "twitter",
           },
           urls: {
-            blogRss: socialMediaType === 'blogRss' ? data.url : "",
-            facebook: socialMediaType === 'facebook' ? data.url : "",
-            twitter: socialMediaType === 'twitter' ? data.url : "",
+            blogRss: socialMediaType === "blogRss" ? data.url : "",
+            facebook: socialMediaType === "facebook" ? data.url : "",
+            twitter: socialMediaType === "twitter" ? data.url : "",
           },
         };
       } else {

@@ -39,7 +39,9 @@ export class SocialMediaService {
     const entries: SocialMediaEntry[] = [];
     const allSocialMedia = this.getSocialMedia();
     const maxSequence =
-      allSocialMedia.length > 0 ? Math.max(...allSocialMedia.map((s) => s.sequence)) : 0;
+      allSocialMedia.length > 0
+        ? Math.max(...allSocialMedia.map((s) => s.sequence))
+        : 0;
 
     let sequence = maxSequence + 1;
 
@@ -94,7 +96,9 @@ export class SocialMediaService {
   }
 
   deleteSocialMedia(id: string): void {
-    const socialMedia = this.getSocialMedia().filter((entry) => entry.id !== id);
+    const socialMedia = this.getSocialMedia().filter(
+      (entry) => entry.id !== id,
+    );
     this.socialMediaSubject.next(socialMedia);
     this.saveToStorage(socialMedia);
   }
